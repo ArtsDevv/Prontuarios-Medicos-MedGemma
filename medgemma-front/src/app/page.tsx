@@ -17,7 +17,7 @@ export default function Home() {
       {/* Cartão Branco Central */}
       <div className="relative flex-1 bg-[#F8F9FA] rounded-[20px] overflow-hidden flex items-center shadow-2xl shadow-black/20">
         
-        {/* Bolhas Flutuantes (O CSS continua no globals.css) */}
+        {/* Bolhas Flutuantes */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="bubble"></div>
           <div className="bubble"></div>
@@ -26,21 +26,22 @@ export default function Home() {
           <div className="bubble"></div>
         </div>
 
-        {/* Textos Principais com a tipografia do Figma */}
+        {/* Textos Principais com o tamanho exato de 150px do Figma em telas grandes */}
         <div className="relative z-10 pl-[10%] md:pl-[15%]">
-          {/* Cor exata do Figma e Line Height 110% (leading-[1.1]) */}
           <h1 className="text-[#35596C] flex flex-col leading-[1.1]">
             
-            {/* MedGemma: SemiBold (600) */}
-            <span className="text-6xl md:text-[8rem] lg:text-[10rem] font-semibold tracking-tight">
+            {/* MedGemma: Plus Jakarta Sans, SemiBold, 150px */}
+            <span className="font-[family-name:var(--font-plus-jakarta)] text-6xl md:text-[150px] font-semibold tracking-tight">
               MedGemma:
             </span>
             
-            {/* Assistente Clínico IA: Regular (400) */}
-            <span className="text-5xl md:text-[6rem] lg:text-[8rem] font-normal tracking-tight mt-[-2%]">
+            {/* Assistente: Post No Bills Jaffna, Regular, 150px */}
+            <span className="font-jaffna text-5xl md:text-[150px] font-normal tracking-tight mt-[-2%]">
               Assistente
             </span>
-            <span className="text-5xl md:text-[6rem] lg:text-[8rem] font-normal tracking-tight">
+
+            {/* Clínico IA: Post No Bills Colombo Light, Regular, 150px */}
+            <span className="font-colombo text-5xl md:text-[150px] font-light tracking-tight mt-[-2%]">
               Clínico IA
             </span>
 
