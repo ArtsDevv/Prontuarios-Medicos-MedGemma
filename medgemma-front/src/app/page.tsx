@@ -40,12 +40,11 @@ export default function Home() {
         {/* TELA 1: Título e Botão de Iniciar */}
         {!isStarted ? (
           /* CORREÇÃO AQUI: 
-             1. flex-col justify-center (centraliza verticalmente no cartão)
-             2. pl-[10%] md:pl-[15%] (empurra pro lado mantendo o alinhamento à esquerda)
+             Adicionado 'flex-1'. Isso força esta div a ocupar toda a altura do cartão,
+             fazendo com que o 'justify-center' empurre o texto para o meio exato da tela.
           */
-          <div className="relative z-10 flex flex-col justify-center h-full w-full animate-in fade-in duration-700 pl-[10%] md:pl-[15%]">
+          <div className="relative z-10 flex-1 flex flex-col justify-center w-full animate-in fade-in duration-700 pl-[10%] md:pl-[15%]">
             
-            {/* Bloco interno com alinhamento à esquerda batendo retinho */}
             <div className="flex flex-col items-start">
               <h1 className="text-[#35596C] flex flex-col leading-[0.9] font-[family-name:var(--font-plus-jakarta)] text-left">
                 <span className="text-6xl md:text-[150px] font-semibold tracking-tight">
@@ -59,7 +58,7 @@ export default function Home() {
                 </span>
               </h1>
 
-              {/* O Botão de Iniciar (alinhado à esquerda com o texto) */}
+              {/* Botão de Iniciar */}
               <button 
                 onClick={() => setIsStarted(true)}
                 className="mt-12 group flex items-center justify-center gap-4 bg-[#35596C] text-white px-8 py-4 rounded-full text-xl font-medium hover:bg-[#254150] transition-all w-max shadow-lg shadow-[#35596C]/20"
@@ -74,8 +73,8 @@ export default function Home() {
           </div>
         ) : (
           
-          /* TELA 2: Painel do Assistente Clínico (Inalterado) */
-          <div className="relative z-20 flex w-full h-full bg-white/60 backdrop-blur-md animate-in fade-in zoom-in-95 duration-500">
+          /* TELA 2: Painel do Assistente Clínico (Com flex-1 garantido) */
+          <div className="relative z-20 flex-1 flex w-full h-full bg-white/60 backdrop-blur-md animate-in fade-in zoom-in-95 duration-500">
             
             {/* Sidebar */}
             <aside className="w-[320px] bg-white/80 border-r border-slate-200 flex flex-col flex-shrink-0">
