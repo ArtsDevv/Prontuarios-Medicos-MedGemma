@@ -1,172 +1,145 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { systemMetadata, initialPatient } from "./data";
 
 export default function Home() {
   const [isStarted, setIsStarted] = useState(false);
   const [mounted, setMounted] = useState(false);
+  
+  const [patient, setPatient] = useState(initialPatient);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const dataAtual = mounted ? new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase() : '';
-  const horaAtual = mounted ? new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '';
+  if (!mounted) return null;
+
+  const dataAtual = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase();
+  const horaAtual = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 
   return (
-    <main className="min-h-screen bg-[#1A3644] p-4 flex flex-col font-sans">
+    <main className="min-h-screen bg-[#1A3644] p-4 flex flex-col font-sans selection:bg-[#35596C]/20">
       
-      {/* Cabeçalho */}
-      <header className="flex justify-between items-center text-white text-sm font-semibold px-2 mb-4 tracking-wider">
-        <div className="flex gap-4">
-          <span>DATE {dataAtual}</span>
+      <header className="flex justify-between items-center text-white/80 text-[10px] font-bold px-2 mb-4 tracking-[0.2em] uppercase">
+        <div className="flex gap-6">
+          <span>{dataAtual}</span>
           <span>{horaAtual}</span>
         </div>
-        <span>COMPANY NAME</span>
+        <span>{systemMetadata.company}</span>
       </header>
 
-      {/* Cartão Central Branco */}
-      <div className="relative flex-1 bg-[#F8F9FA] rounded-[20px] overflow-hidden shadow-2xl shadow-black/20">
+      <div className="relative flex-1 bg-[#F8F9FA] rounded-[24px] overflow-hidden flex shadow-2xl shadow-black/30">
         
-        {/* Bolhas Flutuantes (Fundo contínuo) */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
-          <div className="bubble"></div>
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+          <div className="bubble"></div><div className="bubble"></div><div className="bubble"></div>
         </div>
 
-        <div 
-          className={`absolute inset-0 z-10 flex flex-col justify-center pl-[10%] md:pl-[15%] transition-all duration-1000 ease-in-out ${
-            isStarted ? "opacity-0 pointer-events-none scale-95 blur-sm" : "opacity-100 scale-100 blur-0"
-          }`}
-        >
-          <div className="flex flex-col items-start">
-            <h1 className="text-[#35596C] flex flex-col leading-[0.9] font-[family-name:var(--font-plus-jakarta)] text-left">
-              <span className="text-6xl md:text-[150px] font-semibold tracking-tight">
-                MedGemma:
-              </span>
-              <span className="text-5xl md:text-[150px] font-normal tracking-tight">
-                Assistente
-              </span>
-              <span className="text-5xl md:text-[150px] font-light tracking-tight">
-                Clínico IA
-              </span>
-            </h1>
 
+
+        <div className={`absolute inset-0 z-10 flex flex-col justify-center pl-[10%] md:pl-[12%] transition-all duration-1000 ease-in-out ${
+            isStarted ? "opacity-0 pointer-events-none scale-95 blur-xl" : "opacity-100"
+          }`}>
+          <div className="flex flex-col items-start space-y-2">
+            <h1 className="text-[#35596C] flex flex-col leading-[0.85] font-[family-name:var(--font-plus-jakarta)] text-left">
+              <span className="text-6xl md:text-[150px] font-semibold tracking-tighter">{systemMetadata.title}:</span>
+              <span className="text-5xl md:text-[150px] font-normal tracking-tighter">Assistente</span>
+              <span className="text-5xl md:text-[150px] font-light tracking-tighter">Clínico IA</span>
+            </h1>
             <button 
               onClick={() => setIsStarted(true)}
-              className="mt-12 group flex items-center justify-center gap-4 bg-[#35596C] text-white px-8 py-4 rounded-full text-xl font-medium hover:bg-[#254150] transition-all w-max shadow-lg shadow-[#35596C]/20"
+              className="mt-10 group flex items-center gap-4 bg-[#35596C] text-white px-10 py-5 rounded-full text-lg font-medium hover:bg-[#254150] transition-all hover:shadow-2xl hover:shadow-[#35596C]/40"
             >
               Iniciar Painel
-              <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
           </div>
         </div>
 
-
-        <div 
-          className={`absolute inset-0 z-20 flex w-full h-full bg-white/60 backdrop-blur-md transition-all duration-1000 delay-150 ease-out ${
-            isStarted ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-8"
-          }`}
-        >
+        <div className={`absolute inset-0 z-20 flex w-full h-full bg-white/30 backdrop-blur-2xl transition-all duration-1000 delay-100 ease-out ${
+            isStarted ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-12"
+          }`}>
           
-          <aside className="w-[320px] bg-white/80 border-r border-slate-200 flex flex-col flex-shrink-0">
-            <div className="p-5 border-b border-slate-200 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#35596C] to-[#4A8FC4] flex items-center justify-center text-white">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              </div>
-              <div>
-                <h2 className="text-sm font-bold text-[#35596C]">MedGemma</h2>
-                <p className="text-[10px] text-slate-500 font-mono">CLINICAL AI · v1.5</p>
+          <aside className="w-[340px] bg-white/60 border-r border-slate-200/50 flex flex-col shadow-xl flex-shrink-0">
+            <div className="p-8 border-b border-slate-100/50">
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-10 h-10 rounded-xl bg-[#35596C] flex items-center justify-center text-white shadow-lg relative z-10">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-[#35596C] leading-none">{systemMetadata.title}</h2>
+                  <p className="text-[9px] text-slate-400 font-mono tracking-widest uppercase mt-1 relative z-10">Intelligence {systemMetadata.version}</p>
+                </div>
               </div>
             </div>
 
-            <div className="p-5 flex-1 overflow-y-auto space-y-6 scrollbar-thin scrollbar-thumb-slate-200">
-              <section>
-                <h3 className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-4 flex items-center gap-2">
-                  Contexto do Paciente <span className="flex-1 h-px bg-slate-200"></span>
+            <div className="p-8 flex-1 overflow-y-auto space-y-10 scrollbar-none relative z-10">
+              <section className="space-y-5">
+                <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] flex items-center gap-4">
+                  IDENTIFICAÇÃO <span className="flex-1 h-[1px] bg-slate-100"></span>
                 </h3>
-                <div className="space-y-3">
-                  <input type="text" placeholder="Nome do paciente" className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#35596C] focus:bg-white transition-colors" />
-                  <div className="grid grid-cols-2 gap-3">
-                    <input type="text" placeholder="Idade" className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#35596C] focus:bg-white transition-colors" />
-                    <input type="text" placeholder="Sexo" className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#35596C] focus:bg-white transition-colors" />
-                  </div>
-                  <input type="text" placeholder="CID / Queixa principal" className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#35596C] focus:bg-white transition-colors" />
-                  <textarea placeholder="Histórico clínico, comorbidades, alergias..." rows={4} className="w-full bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg px-3 py-2.5 focus:outline-none focus:border-[#35596C] focus:bg-white transition-colors resize-none"></textarea>
+                <div className="space-y-4">
+                   <div className="group">
+                      <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase transition-colors group-focus-within:text-[#35596C]">Nome do Paciente</label>
+                      <input type="text" value={patient.name} onChange={(e) => setPatient({...patient, name: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C] transition-all" />
+                   </div>
+                   <div className="grid grid-cols-2 gap-6">
+                      <div className="group">
+                        <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Idade</label>
+                        <input type="text" value={patient.age} onChange={(e) => setPatient({...patient, age: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C]" />
+                      </div>
+                      <div className="group">
+                        <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Sexo</label>
+                        <input type="text" value={patient.sex} onChange={(e) => setPatient({...patient, sex: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C]" />
+                      </div>
+                   </div>
                 </div>
               </section>
 
-              <section>
-                <h3 className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-3 flex items-center gap-2">
-                  Análises Rápidas <span className="flex-1 h-px bg-slate-200"></span>
+              <section className="space-y-5">
+                <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] flex items-center gap-4">
+                  CONTEXTO <span className="flex-1 h-[1px] bg-slate-100"></span>
                 </h3>
-                <div className="space-y-2">
-                  <button className="w-full text-left p-3 rounded-lg border border-slate-200 bg-white hover:border-[#35596C] hover:shadow-sm transition-all text-xs text-slate-600 flex items-start gap-2">
-                    <svg className="w-4 h-4 text-[#4A8FC4] shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                    Analise esta radiografia e descreva achados.
-                  </button>
-                  <button className="w-full text-left p-3 rounded-lg border border-slate-200 bg-white hover:border-[#35596C] hover:shadow-sm transition-all text-xs text-slate-600 flex items-start gap-2">
-                    <svg className="w-4 h-4 text-[#4A8FC4] shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M9 12h6M12 9v6M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
-                    Liste diagnósticos diferenciais do caso.
-                  </button>
+                <div className="group">
+                    <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Histórico e Comorbidades</label>
+                    <textarea value={patient.history} onChange={(e) => setPatient({...patient, history: e.target.value})} rows={6} className="w-full mt-2 p-4 bg-white/40 border border-slate-100 rounded-2xl text-sm text-slate-600 leading-relaxed outline-none focus:border-[#35596C]/20 focus:bg-white transition-all resize-none shadow-inner" />
                 </div>
               </section>
+            </div>
+
+            <div className="p-6 bg-slate-50/50 border-t border-slate-100 relative z-10">
+               <div className="flex items-center justify-between opacity-40 grayscale text-[9px] font-mono tracking-tighter">
+                  <span>NODE: BR-SAO-01</span>
+                  <span>STATUS: SECURE</span>
+               </div>
             </div>
           </aside>
 
-          <main className="flex-1 flex flex-col relative">
-            
-            <div className="h-[65px] border-b border-slate-200 flex justify-end items-center px-6">
-              <button 
-                onClick={() => setIsStarted(false)} 
-                className="text-xs font-semibold text-slate-400 hover:text-slate-700 transition-colors flex items-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
-                Voltar ao Início
+          <main className="flex-1 flex flex-col z-10">
+            <div className="h-[80px] flex justify-end items-center px-10">
+              <button onClick={() => setIsStarted(false)} className="group flex items-center gap-3 text-[10px] font-black text-slate-300 hover:text-[#35596C] transition-all tracking-[0.2em] uppercase relative z-10">
+                <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+                Encerrar Sessão
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto flex flex-col items-center justify-center p-8">
-              <div className="w-16 h-16 bg-[#EDF5FB] border border-[#C2DDEF] rounded-2xl flex items-center justify-center mb-6 shadow-sm">
-                <svg className="w-8 h-8 text-[#2D6EAA]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <div className="flex-1 flex flex-col items-center justify-center p-10 text-center relative z-10">
+              <div className="w-20 h-20 rounded-3xl bg-slate-50 flex items-center justify-center mb-8 border border-slate-100 shadow-inner">
+                <svg className="w-10 h-10 text-slate-200" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
               </div>
-              <h2 className="text-xl font-semibold text-[#1A3644] mb-2">Pronto para análise clínica</h2>
-              <p className="text-slate-500 text-sm max-w-sm text-center font-light leading-relaxed">
-                Envie uma imagem médica (radiografia, tomografia, ressonância) e descreva a hipótese clínica para uma análise assistida por IA.
-              </p>
-              <div className="flex flex-wrap justify-center gap-2 mt-6">
-                <span className="px-4 py-1.5 border border-slate-200 rounded-full text-xs text-slate-500 cursor-pointer hover:bg-slate-50 transition-colors">Radiografia de tórax</span>
-                <span className="px-4 py-1.5 border border-slate-200 rounded-full text-xs text-slate-500 cursor-pointer hover:bg-slate-50 transition-colors">TC de abdome</span>
-                <span className="px-4 py-1.5 border border-slate-200 rounded-full text-xs text-slate-500 cursor-pointer hover:bg-slate-50 transition-colors">Ressonância magnética</span>
-              </div>
+              <h2 className="text-2xl font-semibold text-slate-800 tracking-tight">Análise Assistida por IA</h2>
+              <p className="text-slate-400 text-sm max-w-sm mt-2 font-light leadin-relaxed">Envie uma imagem médica ou descreva achados clínicos para iniciar o processamento neural.</p>
             </div>
 
-            <div className="p-6 pt-0">
-              <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl shadow-sm focus-within:border-[#35596C] focus-within:shadow-md transition-all overflow-hidden flex items-end">
-                <button className="p-4 text-slate-400 hover:text-[#35596C] transition-colors">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            <div className="p-10 relative z-10">
+              <div className="max-w-4xl mx-auto flex items-center gap-4 bg-white/80 border border-slate-200 p-3 rounded-[24px] shadow-sm focus-within:shadow-xl focus-within:border-[#35596C]/20 transition-all backdrop-blur-md">
+                <button className="p-3 text-slate-300 hover:text-[#35596C] transition-colors"><svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+                <input type="text" placeholder="Descreva o caso clínico..." className="flex-1 bg-transparent outline-none text-sm text-slate-600 placeholder:text-slate-300 font-medium" />
+                <button className="bg-[#35596C] text-white w-12 h-12 rounded-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#35596C]/30">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2 15 22 11 13 2 9l20-7z"/></svg>
                 </button>
-                <textarea 
-                  placeholder="Descreva o caso clínico ou faça uma pergunta..." 
-                  className="flex-1 max-h-[120px] py-4 bg-transparent border-none outline-none resize-none text-slate-700 text-sm font-light placeholder:text-slate-400"
-                  rows={1}
-                ></textarea>
-                <div className="p-3">
-                  <button className="w-9 h-9 bg-gradient-to-br from-[#35596C] to-[#4A8FC4] rounded-full flex items-center justify-center text-white hover:scale-105 transition-transform shadow-sm">
-                    <svg className="w-4 h-4 ml-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2 15 22 11 13 2 9l20-7z"/></svg>
-                  </button>
-                </div>
               </div>
-              <p className="text-center text-[10px] font-mono text-slate-400 mt-3">
-                <span className="bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5">Enter</span> para enviar · MedGemma é uma ferramenta de suporte.
-              </p>
             </div>
-
           </main>
         </div>
 
