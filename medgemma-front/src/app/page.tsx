@@ -26,22 +26,24 @@ export default function Home() {
           <div className="bubble"></div>
         </div>
 
-        {/* Textos Principais com o tamanho exato de 150px do Figma em telas grandes */}
         <div className="relative z-10 pl-[10%] md:pl-[15%]">
           <h1 className="text-[#35596C] flex flex-col leading-[1.1]">
             
-            {/* MedGemma: Plus Jakarta Sans, SemiBold, 150px */}
             <span className="font-[family-name:var(--font-plus-jakarta)] text-6xl md:text-[150px] font-semibold tracking-tight">
               MedGemma:
             </span>
             
-            {/* Assistente: Post No Bills Jaffna, Regular, 150px */}
-            <span className="font-jaffna text-5xl md:text-[150px] font-normal tracking-tight mt-[-2%]">
+            <span 
+              style={{ fontFamily: "'Post No Bills Jaffna', sans-serif" }} 
+              className="text-5xl md:text-[150px] font-normal tracking-tight mt-[-2%]"
+            >
               Assistente
             </span>
-
-            {/* Clínico IA: Post No Bills Colombo Light, Regular, 150px */}
-            <span className="font-colombo text-5xl md:text-[150px] font-light tracking-tight mt-[-2%]">
+S
+            <span 
+              style={{ fontFamily: "'Post No Bills Colombo', sans-serif" }} 
+              className="text-5xl md:text-[150px] font-light tracking-tight mt-[-2%]"
+            >
               Clínico IA
             </span>
 
