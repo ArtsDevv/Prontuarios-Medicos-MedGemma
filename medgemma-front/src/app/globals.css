@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Post+No+Bills+Colombo:wght@300;400&family=Post+No+Bills+Jaffna:wght@400&display=swap');
 @import "tailwindcss";
 
-/* Classes das fontes */
-.font-jaffna {
-  font-family: 'Post No Bills Jaffna', sans-serif;
+/* Classes puras e forçadas */
+.fonte-jaffna {
+  font-family: 'Post No Bills Jaffna', sans-serif !important;
 }
-.font-colombo {
-  font-family: 'Post No Bills Colombo', sans-serif;
+
+.fonte-colombo {
+  font-family: 'Post No Bills Colombo', sans-serif !important;
 }
 
 /* Animação das bolhas flutuantes */
