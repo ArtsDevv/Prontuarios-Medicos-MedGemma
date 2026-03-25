@@ -31,12 +31,12 @@ Logo, este projeto visa atuar como um ecossistema de auxílio médico, conectand
 <br>
 
 <div align="center">
-<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" title="Next.js" alt="Next.js" />
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/react-61DAFB%3Fstyle%3Dfor-the-badge%26logo%3Dreact%26logoColor%3Dblack" title="React" alt="React" />
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/typescript-3178C6%3Fstyle%3Dfor-the-badge%26logo%3Dtypescript%26logoColor%3Dwhite" title="TypeScript" alt="TypeScript" />
-<img src="https://www.google.com/search?q=https://img.shields.io/badge/tailwind_css-38B2AC%3Fstyle%3Dfor-the-badge%26logo%3Dtailwind-css%26logoColor%3Dwhite" title="Tailwind CSS" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" title="Next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" title="React" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" title="TypeScript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" title="Tailwind CSS" alt="Tailwind CSS" />
 </div>
 
 <br>
 
-<img src="https://www.google.com/search?q=https://capsule-render.vercel.app/api%3Ftype%3Dwaving%26color%3D1A3644%26height%3D120%26section%3Dfooter" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0052D4,4364F7&height=120&section=footer" width="100%"/>
