@@ -1,15 +1,5 @@
 @import "tailwindcss";
 
-/* Classes puras e forçadas */
-.fonte-jaffna {
-  font-family: 'Post No Bills Jaffna', sans-serif !important;
-}
-
-.fonte-colombo {
-  font-family: 'Post No Bills Colombo', sans-serif !important;
-}
-
-/* Animação das bolhas flutuantes */
 @keyframes float {
   0% { transform: translateY(0) scale(1); opacity: 0; }
   20% { opacity: 0.6; }

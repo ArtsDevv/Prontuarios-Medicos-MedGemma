@@ -26,22 +26,22 @@ export default function Home() {
           <div className="bubble"></div>
         </div>
 
-        {/* Textos */}
+        {/* Textos Principais */}
         <div className="relative z-10 pl-[10%] md:pl-[15%]">
-          <h1 className="text-[#35596C] flex flex-col leading-[1.1]">
+          <h1 className="text-[#35596C] flex flex-col leading-[1.1] font-[family-name:var(--font-plus-jakarta)]">
             
-            {/* MedGemma: Plus Jakarta Sans */}
-            <span className="font-[family-name:var(--font-plus-jakarta)] text-6xl md:text-[150px] font-semibold tracking-tight">
+            {/* MedGemma: Grosso (SemiBold) */}
+            <span className="text-6xl md:text-[150px] font-semibold tracking-tight">
               MedGemma:
             </span>
             
-            {/* Assistente: Forçando a classe CSS pura */}
-            <span className="fonte-jaffna text-5xl md:text-[150px] tracking-tight mt-[-2%]">
+            {/* Assistente: Espessura Média (Normal) */}
+            <span className="text-5xl md:text-[150px] font-normal tracking-tight mt-[-2%]">
               Assistente
             </span>
 
-            {/* Clínico IA: Forçando a classe CSS pura */}
-            <span className="fonte-colombo text-5xl md:text-[150px] tracking-tight mt-[-2%]">
+            {/* Clínico IA: Bem fino (Light) */}
+            <span className="text-5xl md:text-[150px] font-light tracking-tight mt-[-2%]">
               Clínico IA
             </span>
 
