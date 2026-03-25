@@ -21,6 +21,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#1A3644] p-4 flex flex-col font-sans selection:bg-[#35596C]/20">
       
+      {/* HEADER SUPERIOR */}
       <header className="flex justify-between items-center text-white/80 text-[10px] font-bold px-2 mb-4 tracking-[0.2em] uppercase">
         <div className="flex gap-6">
           <span>{dataAtual}</span>
@@ -31,12 +32,12 @@ export default function Home() {
 
       <div className="relative flex-1 bg-[#F8F9FA] rounded-[24px] overflow-hidden flex shadow-2xl shadow-black/30">
         
+        {/* BACKGROUND BOLHAS */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
           <div className="bubble"></div><div className="bubble"></div><div className="bubble"></div>
         </div>
 
-
-
+        {/* TELA 1: LANDING */}
         <div className={`absolute inset-0 z-10 flex flex-col justify-center pl-[10%] md:pl-[12%] transition-all duration-1000 ease-in-out ${
             isStarted ? "opacity-0 pointer-events-none scale-95 blur-xl" : "opacity-100"
           }`}>
@@ -56,6 +57,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* TELA 2: PAINEL PRINCIPAL */}
         <div className={`absolute inset-0 z-20 flex w-full h-full bg-white/30 backdrop-blur-2xl transition-all duration-1000 delay-100 ease-out ${
             isStarted ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-12"
           }`}>
@@ -74,39 +76,61 @@ export default function Home() {
             </div>
 
             <div className="p-8 flex-1 overflow-y-auto space-y-10 scrollbar-none relative z-10">
+              
+              {/* SEÇÃO IDENTIFICAÇÃO (UNIFICADA E CORRIGIDA) */}
               <section className="space-y-5">
                 <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] flex items-center gap-4">
                   IDENTIFICAÇÃO <span className="flex-1 h-[1px] bg-slate-100"></span>
                 </h3>
+                
                 <div className="space-y-4">
-                   <div className="group">
-                      <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase transition-colors group-focus-within:text-[#35596C]">Nome do Paciente</label>
-                      <input type="text" value={patient.name} onChange={(e) => setPatient({...patient, name: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C] transition-all" />
-                   </div>
-                   <div className="grid grid-cols-2 gap-6">
-                      <div className="group">
-                        <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Idade</label>
-                        <input type="text" value={patient.age} onChange={(e) => setPatient({...patient, age: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C]" />
-                      </div>
-                      <div className="group">
-                        <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Sexo</label>
-                        <input type="text" value={patient.sex} onChange={(e) => setPatient({...patient, sex: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C]" />
-                      </div>
-                   </div>
+                  <div className="group">
+                    <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase transition-colors group-focus-within:text-[#35596C]">Nome do Paciente</label>
+                    <input type="text" value={patient.name} onChange={(e) => setPatient({...patient, name: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C] transition-all" />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Idade</label>
+                      <input type="text" value={patient.age} onChange={(e) => setPatient({...patient, age: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C]" />
+                    </div>
+                    <div className="group">
+                      <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Sexo</label>
+                      <input type="text" value={patient.sex} onChange={(e) => setPatient({...patient, sex: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C]" />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">CID</label>
+                      <input type="text" value={patient.cid} onChange={(e) => setPatient({...patient, cid: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C]" />
+                    </div>
+                    <div className="group">
+                      <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Caso</label>
+                      <input type="text" value={patient.complaint} onChange={(e) => setPatient({...patient, complaint: e.target.value})} className="w-full bg-transparent border-b border-slate-200 py-2 text-sm text-slate-700 outline-none focus:border-[#35596C]" />
+                    </div>
+                  </div>
                 </div>
               </section>
 
+              {/* SEÇÃO CONTEXTO */}
               <section className="space-y-5">
                 <h3 className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] flex items-center gap-4">
                   CONTEXTO <span className="flex-1 h-[1px] bg-slate-100"></span>
                 </h3>
                 <div className="group">
-                    <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase">Histórico e Comorbidades</label>
-                    <textarea value={patient.history} onChange={(e) => setPatient({...patient, history: e.target.value})} rows={6} className="w-full mt-2 p-4 bg-white/40 border border-slate-100 rounded-2xl text-sm text-slate-600 leading-relaxed outline-none focus:border-[#35596C]/20 focus:bg-white transition-all resize-none shadow-inner" />
+                    <label className="text-[9px] font-bold text-slate-400 ml-1 uppercase transition-colors group-focus-within:text-[#35596C]">Histórico e Comorbidades</label>
+                    <textarea 
+                      value={patient.history} 
+                      onChange={(e) => setPatient({...patient, history: e.target.value})} 
+                      rows={6} 
+                      className="w-full mt-2 p-4 bg-white/40 border border-slate-100 rounded-2xl text-sm text-slate-600 leading-relaxed outline-none focus:border-[#35596C]/20 focus:bg-white transition-all resize-none shadow-inner" 
+                    />
                 </div>
               </section>
             </div>
 
+            {/* RODAPÉ SIDEBAR */}
             <div className="p-6 bg-slate-50/50 border-t border-slate-100 relative z-10">
                <div className="flex items-center justify-between opacity-40 grayscale text-[9px] font-mono tracking-tighter">
                   <span>NODE: BR-SAO-01</span>
@@ -115,6 +139,7 @@ export default function Home() {
             </div>
           </aside>
 
+          {/* ÁREA DO CHAT */}
           <main className="flex-1 flex flex-col z-10">
             <div className="h-[80px] flex justify-end items-center px-10">
               <button onClick={() => setIsStarted(false)} className="group flex items-center gap-3 text-[10px] font-black text-slate-300 hover:text-[#35596C] transition-all tracking-[0.2em] uppercase relative z-10">
@@ -128,7 +153,7 @@ export default function Home() {
                 <svg className="w-10 h-10 text-slate-200" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
               </div>
               <h2 className="text-2xl font-semibold text-slate-800 tracking-tight">Análise Assistida por IA</h2>
-              <p className="text-slate-400 text-sm max-w-sm mt-2 font-light leadin-relaxed">Envie uma imagem médica ou descreva achados clínicos para iniciar o processamento neural.</p>
+              <p className="text-slate-400 text-sm max-w-sm mt-2 font-light leading-relaxed">Envie uma imagem médica ou descreva achados clínicos para iniciar o processamento neural.</p>
             </div>
 
             <div className="p-10 relative z-10">
