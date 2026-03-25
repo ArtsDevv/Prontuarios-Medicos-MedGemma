@@ -2,14 +2,14 @@
 
 @keyframes float {
   0% { transform: translateY(0) scale(1); opacity: 0; }
-  20% { opacity: 0.6; }
+  20% { opacity: 0.8; }
   100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
 }
 
 .bubble {
   position: absolute;
   bottom: -50px;
-  background-color: rgba(51, 86, 108, 0.05); 
+  background-color: rgba(51, 86, 108, 0.20); 
   border-radius: 50%;
   animation: float infinite linear;
 }
