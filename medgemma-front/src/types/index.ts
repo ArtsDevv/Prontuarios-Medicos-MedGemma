@@ -17,3 +17,13 @@ export interface Diagnostico {
   nivelUrgencia: 'Baixo' | 'Médio' | 'Alto';
   data: string;
 }
+
+export interface Endereco {
+  cep: string;
+  rua: string;
+  numero: string;
+  complemento?: string; // Opcional (ex: Apto 42, Bloco B)
+  bairro: string;
+  cidade: string;
+  estado: string;
+}
