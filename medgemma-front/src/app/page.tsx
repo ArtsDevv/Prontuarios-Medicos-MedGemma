@@ -39,12 +39,15 @@ export default function Home() {
 
         {/* TELA 1: Título e Botão de Iniciar */}
         {!isStarted ? (
-          /* Aqui foi a correção: tirei o padding left e adicionei items-center e justify-center */
-          <div className="relative z-10 flex flex-col items-center justify-center h-full w-full animate-in fade-in duration-700">
+          /* CORREÇÃO AQUI: 
+             1. flex-col justify-center (centraliza verticalmente no cartão)
+             2. pl-[10%] md:pl-[15%] (empurra pro lado mantendo o alinhamento à esquerda)
+          */
+          <div className="relative z-10 flex flex-col justify-center h-full w-full animate-in fade-in duration-700 pl-[10%] md:pl-[15%]">
             
-            {/* Wrapper extra para manter o bloco de texto unido e centralizado na tela */}
-            <div className="flex flex-col items-center md:items-start">
-              <h1 className="text-[#35596C] flex flex-col leading-[0.9] font-[family-name:var(--font-plus-jakarta)] text-center md:text-left">
+            {/* Bloco interno com alinhamento à esquerda batendo retinho */}
+            <div className="flex flex-col items-start">
+              <h1 className="text-[#35596C] flex flex-col leading-[0.9] font-[family-name:var(--font-plus-jakarta)] text-left">
                 <span className="text-6xl md:text-[150px] font-semibold tracking-tight">
                   MedGemma:
                 </span>
@@ -56,7 +59,7 @@ export default function Home() {
                 </span>
               </h1>
 
-              {/* O Botão de Iniciar (agora alinhado com o texto) */}
+              {/* O Botão de Iniciar (alinhado à esquerda com o texto) */}
               <button 
                 onClick={() => setIsStarted(true)}
                 className="mt-12 group flex items-center justify-center gap-4 bg-[#35596C] text-white px-8 py-4 rounded-full text-xl font-medium hover:bg-[#254150] transition-all w-max shadow-lg shadow-[#35596C]/20"
@@ -71,7 +74,7 @@ export default function Home() {
           </div>
         ) : (
           
-          /* TELA 2: Painel do Assistente Clínico */
+          /* TELA 2: Painel do Assistente Clínico (Inalterado) */
           <div className="relative z-20 flex w-full h-full bg-white/60 backdrop-blur-md animate-in fade-in zoom-in-95 duration-500">
             
             {/* Sidebar */}
@@ -169,10 +172,11 @@ export default function Home() {
                 </p>
               </div>
 
-                      </main>
-                    </div>
-                  )}
-                </div>
-              </main>
-            );
-          }
+            </main>
+          </div>
+        )}
+
+      </div>
+    </main>
+  );
+}
