@@ -24,13 +24,13 @@ Therefore, this project aims to act as a medical assistance ecosystem, connectin
 * **MVC and DTO Design Patterns:** Clean and scalable structuring, separating responsibilities among Controllers, Services, and Repositories.
 * **Microservices Orchestration:** Endpoint configured to receive images (`MultipartFile`) and structured data, acting as the "manager" that will bridge the gap with the AI model.
 
-### 🧠 Artificial Intelligence (Next Phase)
+### 🧠 Artificial Intelligence
 * **Metadata Integration:** The system will automatically send the structured history to the AI microservice.
 * **Computer Vision and LLMs:** Preparation of the Python/FastAPI architecture to receive requests from Java and process images and reports through the MedGemma model.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Technologies Used
 
 <br>
 
