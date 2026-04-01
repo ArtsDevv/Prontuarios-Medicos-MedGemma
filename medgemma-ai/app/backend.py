@@ -66,7 +66,7 @@ async def analyze_case(
             response_text = ai_model.analyze_image(
                 image_path=temp_path,
                 prompt=custom_prompt,
-                max_tokens=800,
+                max_tokens=100,
                 temperature=0.7
             )
             print("✅ Análise concluída!")
