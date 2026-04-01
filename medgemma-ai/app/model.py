@@ -86,16 +86,16 @@ class MedGemmaModel:
             print(f"❌ Erro ao carregar processador: {e}")
             raise
         
-        # Configurar quantização
+        # Configurar quantização extrema (4-bit)
         if self.use_8bit:
-            print("\nConfigurando quantização 8-bit...")
+            print("\nConfigurando quantização EXTREMA de 4-bit para poupar VRAM...")
             bnb_config = BitsAndBytesConfig(
-                load_in_8bit=True,
-                llm_int8_threshold=6.0,
-                llm_int8_has_fp16_weight=False,
-                llm_int8_enable_fp32_cpu_offload=True
+                load_in_4bit=True,
+                bnb_4bit_use_double_quant=True,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch.bfloat16
             )
-            print("✓ Configuração 8-bit criada")
+            print("✓ Configuração 4-bit criada (Consumo de VRAM reduzido!)")
         else:
             bnb_config = None
             print("\nCarregando sem quantização (FP16)...")

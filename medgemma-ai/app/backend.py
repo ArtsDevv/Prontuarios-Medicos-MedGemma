@@ -33,7 +33,7 @@ print("🖥️ Iniciando o Servidor FastAPI e alocando o MedGemma na GPU...")
 print("⚠️ ATENÇÃO: Fique de olho na aba 'Desempenho' do Gerenciador de Tarefas!")
 print("=" * 70)
 
-# Carrega o modelo na memória (Momento crítico para a VRAM)
+# Carrega o modelo na memória
 ai_model = MedGemmaModel(use_8bit=True)
 print("✅ Modelo carregado com sucesso na GPU! Servidor pronto.")
 
@@ -54,14 +54,12 @@ async def analyze_case(
         image_file = files[0]
         temp_path = f"temp_{image_file.filename}"
         
-        # Salva a imagem temporariamente
         with open(temp_path, "wb") as buffer:
             shutil.copyfileobj(image_file.file, buffer)
             
         print(f"🖼️ Imagem recebida. Iniciando processamento local...")
         
         try:
-            # Monta o prompt combinando os dados
             custom_prompt = f"Patient context: {patient_data}\nPhysician's Notes: {message}\nTask: Analyze the attached medical image."
             
             # Chama a IA local (model.py)
@@ -77,7 +75,6 @@ async def analyze_case(
             response_text = f"Erro no processamento da IA Local: {str(e)}"
             print(f"❌ {response_text}")
         finally:
-            # Limpeza do arquivo
             if os.path.exists(temp_path):
                 os.remove(temp_path)
     else:
@@ -86,5 +83,4 @@ async def analyze_case(
     return {"analysis": response_text}
 
 if __name__ == "__main__":
-    # Roda o servidor na porta 8000
     uvicorn.run(app, host="0.0.0.0", port=8000)
