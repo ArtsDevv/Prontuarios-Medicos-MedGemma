@@ -32,7 +32,6 @@ export default function Home() {
 
   if (!mounted) return null;
 
-  // Correção: Garante que o valor seja tratado como string antes do .trim()
   const isSidebarComplete = Object.values(patient).every(value => 
     value !== null && value !== undefined && String(value).trim() !== ""
   );
@@ -47,7 +46,6 @@ export default function Home() {
     }
   };
 
-  // Alteração: Função agora é Assíncrona para falar com o Backend
   const handleSendMessage = async () => {
     if (!message.trim() && selectedImages.length === 0) return;
     
@@ -55,24 +53,22 @@ export default function Home() {
     const currentImages = [...selectedImages];
     const imageUrls = currentImages.map(img => img.preview);
     
-    // 1. Atualiza o chat localmente com a pergunta do usuário
     setChatLog(prev => [...prev, { role: 'user', text: currentMessage, images: imageUrls }]);
     setMessage("");
     setSelectedImages([]);
     setIsTyping(true);
 
     try {
-      // 2. Prepara o FormData (necessário para enviar arquivos)
+      // Prepara o FormData
       const formData = new FormData();
       formData.append('patient_data', JSON.stringify(patient));
       formData.append('message', currentMessage);
       
       if (currentImages.length > 0) {
-        // Envia a primeira imagem selecionada
         formData.append('files', currentImages[0].file);
       }
 
-      // 3. Chamada real para o seu Microserviço Python
+      // Chamada real para o Microserviço Python
       const response = await fetch('http://localhost:8000/analyze', {
         method: 'POST',
         body: formData,
@@ -82,7 +78,7 @@ export default function Home() {
 
       const data = await response.json();
 
-      // 4. Exibe a resposta real da IA (MedGemma)
+      // Exibe a resposta real da IA (MedGemma)
       setChatLog(prev => [...prev, { 
         role: 'ai', 
         text: data.analysis || "Análise concluída, mas sem texto de retorno." 
