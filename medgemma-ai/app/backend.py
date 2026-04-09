@@ -1,6 +1,6 @@
 """
 MedGemma Backend API - FastAPI Server
-Conecta o frontend/Java ao modelo MedGemma 1.5 Local
+Conecta o frontend/Java ao modelo MedGemma 1.5 Local ou Gemini Cloud
 
 Uso:
 Acessar o arquivo guia.txt 
@@ -16,12 +16,13 @@ import os
 import shutil
 from model import MedGemmaModel
 import google.generativeai as genai
-ACTIVE_AI_PROVIDER = "CLOUD_GEMINI"
+from PIL import Image 
+
+ACTIVE_AI_PROVIDER = "CLOUD_GEMINI" # Mude para "LOCAL_MEDGEMMA" quando quiser usar a GPU
 GOOGLE_API_KEY = "AIzaSyA4UJ3P7OlKyoKzVeZcdmNmQ5ftkjRmIjk"
 
-app = FastAPI(title="MedGemma Local AI Microservice")
+app = FastAPI(title="MedGemma AI Microservice")
 
-# Libera o acesso para o Next.js (porta 3000) ou Java (porta 8080) conversarem com o Python
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], 
@@ -30,18 +31,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-print("=" * 70)
-print("🖥️ Iniciando o Servidor FastAPI e alocando o MedGemma na GPU...")
-print("⚠️ ATENÇÃO: Fique de olho na aba 'Desempenho' do Gerenciador de Tarefas!")
-print("=" * 70)
+# INICIALIZAÇÃO DO MODELO DE IA (LOCAL OU CLOUD)
+ai_model = None
 
-# Carrega o modelo na memória
-ai_model = MedGemmaModel(use_8bit=True)
-print("✅ Modelo carregado com sucesso na GPU! Servidor pronto.")
+if ACTIVE_AI_PROVIDER == "LOCAL_MEDGEMMA":
+    print("=" * 70)
+    print("🖥️ MODO LOCAL: Carregando MedGemma na GPU...")
+    ai_model = MedGemmaModel(use_8bit=True)
+    print("✅ Modelo carregado com sucesso na GPU!")
+    print("=" * 70)
+else:
+    print("=" * 70)
+    print("🚀 MODO CLOUD: Usando Gemini 1.5 Flash")
+    genai.configure(api_key=GOOGLE_API_KEY)
+    print("=" * 70)
 
 @app.get("/")
 def read_root():
-    return {"status": "MedGemma Local FastAPI is Online", "provider": "Local GPU"}
+    return {"status": "Online", "provider": ACTIVE_AI_PROVIDER}
 
 @app.post("/analyze")
 async def analyze_case(
@@ -49,40 +56,45 @@ async def analyze_case(
     message: Optional[str] = Form(""),
     files: List[UploadFile] = File(None)
 ):
-    print("\n📥 Nova requisição recebida!")
-    response_text = "Nenhuma imagem foi enviada para análise."
+    print(f"\n📥 Nova requisição recebida via {ACTIVE_AI_PROVIDER}")
+    
+    if not files or len(files) == 0:
+        return {"analysis": "Erro: Nenhuma imagem enviada."}
 
-    if files and len(files) > 0 and files[0].filename:
-        image_file = files[0]
-        temp_path = f"temp_{image_file.filename}"
+    image_file = files[0]
+    temp_path = f"temp_{image_file.filename}"
+    
+    with open(temp_path, "wb") as buffer:
+        shutil.copyfileobj(image_file.file, buffer)
         
-        with open(temp_path, "wb") as buffer:
-            shutil.copyfileobj(image_file.file, buffer)
-            
-        print(f"🖼️ Imagem recebida. Iniciando processamento local...")
+    try:
+        custom_prompt = f"Patient context: {patient_data}\nPhysician's Notes: {message}\nTask: Analyze the attached medical image."
         
-        try:
-            custom_prompt = f"Patient context: {patient_data}\nPhysician's Notes: {message}\nTask: Analyze the attached medical image."
-            
-            # Chama a IA local (model.py)
+        # --- DECISÃO DE QUAL IA USAR ---
+        if ACTIVE_AI_PROVIDER == "CLOUD_GEMINI":
+            # CHAMADA PARA O GOOGLE CLOUD
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            img = Image.open(temp_path)
+            response = model.generate_content([custom_prompt, img])
+            response_text = response.text
+        else:
+            # CHAMADA PARA A GPU LOCAL
             response_text = ai_model.analyze_image(
                 image_path=temp_path,
                 prompt=custom_prompt,
-                max_tokens=100,
+                max_tokens=200,
                 temperature=0.7
             )
-            print("✅ Análise concluída!")
             
-        except Exception as e:
-            response_text = f"Erro no processamento da IA Local: {str(e)}"
-            print(f"❌ {response_text}")
-        finally:
-            if os.path.exists(temp_path):
-                os.remove(temp_path)
-    else:
-        response_text = "Erro: O assistente visual requer uma imagem médica para análise."
+        print("✅ Análise concluída com sucesso!")
+        return {"analysis": response_text}
 
-    return {"analysis": response_text}
+    except Exception as e:
+        print(f"❌ Erro: {str(e)}")
+        return {"analysis": f"Erro no processamento: {str(e)}"}
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
