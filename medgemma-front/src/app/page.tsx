@@ -53,13 +53,35 @@ export default function Home() {
     const currentImages = [...selectedImages];
     const imageUrls = currentImages.map(img => img.preview);
     
-    setChatLog(prev => [...prev, { role: 'user', text: currentMessage, images: imageUrls }]);
-    setMessage("");
-    setSelectedImages([]);
-    setIsTyping(true);
+    const rawText = data.analysis || "";
+    const cleanMedicalResponse = (text: string) => {
+      if (!text) return "Não foi possível obter a análise.";
 
-    try {
-      // Prepara o FormData
+      const findingsIndex = text.indexOf("FINDINGS:");
+
+      if (findingsIndex !== -1) {
+        return text.substring(findingsIndex).trim();
+    }
+
+    const modelIndex = text.lastIndexOf("model");
+
+    if (modelIndex !== -1) {
+      return text.substring(modelIndex + 5).trim();
+    }
+
+    return text;
+  };
+
+  setChatLog(prev => [...prev, { 
+    role: 'ai', 
+    text: cleanMedicalResponse(rawText) 
+  }]);
+
+      setMessage("");
+      setSelectedImages([]);
+      setIsTyping(true);
+
+    try { // Prepara o FormData
       const formData = new FormData();
       formData.append('patient_data', JSON.stringify(patient));
       formData.append('message', currentMessage);

@@ -17,7 +17,7 @@ import shutil
 from model import MedGemmaModel
 import google.generativeai as genai
 ACTIVE_AI_PROVIDER = "CLOUD_GEMINI"
-GOOGLE_API_KEY = "SUA_CHAVE_AQUI_DENTRO_DAS_ASPAS"
+GOOGLE_API_KEY = "AIzaSyA4UJ3P7OlKyoKzVeZcdmNmQ5ftkjRmIjk"
 
 app = FastAPI(title="MedGemma Local AI Microservice")
 
